@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Finance — Module Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── VARIABLES ─────────────────────────────────────────── */
+  :root {
+    --ink:        #1a1209;
+    --ink-light:  #3d2f1a;
+    --accent:     #8b1a1a;
+    --bg:         #faf7f2;
+    --bg-warm:    #f5f0e8;
+    --rule:       #c8b99a;
+    --rule-light: #e8dfd0;
+    --margin:     #6b5a3e;
+    --box-bg:     #f0ebe0;
+    --note-bg:    #fdf6e3;
+    --green:      #1a5c2e;
+    --blue:       #1a3a5c;
+    --font-main:  'EB Garamond', Georgia, serif;
+    --font-mono:  'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  /* ── RESET ──────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── BASE ───────────────────────────────────────────────── */
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-main);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: clamp(15px, 2.2vw, 17px);
+    line-height: 1.78;
+  }
+
+  /* ── PAGE WRAPPER ───────────────────────────────────────── */
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px clamp(20px, 6vw, 72px) 72px;
+  }
+
+  /* ── COVER ──────────────────────────────────────────────── */
+  .cover {
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid var(--rule);
+    padding-bottom: 56px;
+    margin-bottom: 56px;
+  }
+
+  .cover-institution {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--margin);
+    margin-bottom: 36px;
+  }
+
+  .cover-rule {
+    width: 52px; height: 3px;
+    background: var(--accent);
+    margin-bottom: 36px;
+  }
+
+  .cover-title {
+    font-size: clamp(28px, 5.5vw, 42px);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-subtitle {
+    font-size: clamp(15px, 2.8vw, 21px);
+    color: var(--ink-light);
+    font-style: italic;
+    margin-bottom: 44px;
+  }
+
+  .cover-meta {
+    font-size: 12px;
+    color: var(--margin);
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--rule);
+    padding-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 36px;
+  }
+
+  .cover-meta span { display: flex; flex-direction: column; }
+  .cover-meta .label { text-transform: uppercase; font-size: 9px; letter-spacing: 0.22em; margin-bottom: 3px; }
+  .cover-meta .value { font-size: 13px; color: var(--ink-light); font-style: italic; }
+
+  /* ── TABLE OF CONTENTS ──────────────────────────────────── */
+  .toc {
+    margin-bottom: 56px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .toc-title {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--margin);
+    margin-bottom: 20px;
+  }
+
+  .toc-entry {
+    display: flex;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--rule-light);
+    font-size: 14px;
+    color: var(--ink-light);
+    gap: 8px;
+  }
+
+  .toc-num {
+    color: var(--accent);
+    min-width: 24px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .toc-name { flex: 1; }
+  .toc-dots { flex: 2; border-bottom: 1px dotted var(--rule); margin: 0 6px; position: relative; top: -3px; min-width: 20px; }
+
+  /* ── SECTIONS ───────────────────────────────────────────── */
+  .section {
+    margin-bottom: 52px;
+    padding-top: 36px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 9px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: clamp(18px, 3.2vw, 24px);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.2px;
+  }
+
+  .subsection { margin-bottom: 28px; }
+
+  .subsection-title {
+    font-size: clamp(14px, 2vw, 17px);
+    font-weight: 600;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .sub-num {
+    font-size: 12px;
+    color: var(--accent);
+    min-width: 30px;
+    flex-shrink: 0;
+  }
+
+  p {
+    margin-bottom: 13px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  /* ── LISTS ──────────────────────────────────────────────── */
+  ul.note-list {
+    list-style: none;
+    margin: 10px 0 16px;
+    padding: 0;
+  }
+
+  ul.note-list li {
+    padding: 3px 0 3px 22px;
+    position: relative;
+    color: var(--ink-light);
+    font-size: 0.94em;
+  }
+
+  ul.note-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  ul.note-list.circle li::before {
+    content: '○';
+    font-size: 11px;
+    top: 3px;
+  }
+
+  ol.note-list-num {
+    list-style: none;
+    margin: 10px 0 16px;
+    padding: 0;
+    counter-reset: note-counter;
+  }
+
+  ol.note-list-num li {
+    padding: 5px 0 5px 34px;
+    position: relative;
+    color: var(--ink-light);
+    font-size: 0.94em;
+    counter-increment: note-counter;
+  }
+
+  ol.note-list-num li::before {
+    content: '(' counter(note-counter) ')';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+  }
+
+  /* ── BOXES ──────────────────────────────────────────────── */
+  .box {
+    background: var(--box-bg);
+    border-left: 3px solid var(--accent);
+    padding: 15px 18px;
+    margin: 16px 0;
+    font-size: 0.94em;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .box-title {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .box.theorem  { border-color: var(--blue);   background: #eef3f8; }
+  .box.theorem  .box-title { color: var(--blue); }
+  .box.example  { border-color: var(--green);  background: #edf5f0; }
+  .box.example  .box-title { color: var(--green); }
+  .box.remark   { border-color: var(--margin); background: var(--note-bg); }
+  .box.remark   .box-title { color: var(--margin); }
+
+  /* ── FORMULA ────────────────────────────────────────────── */
+  .formula {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+    padding: 12px 18px;
+    margin: 14px 0;
+    text-align: center;
+    color: var(--blue);
+    letter-spacing: 0.03em;
+    overflow-x: auto;
+  }
+
+  .formula .result { font-weight: 700; color: var(--accent); }
+
+  /* ── DIAGRAMS ───────────────────────────────────────────── */
+  .diagram-container {
+    margin: 20px 0;
+    padding: 18px 16px;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+    text-align: center;
+    overflow-x: auto;
+    border-radius: 3px;
+  }
+
+  .diagram-title {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--margin);
+    margin-bottom: 14px;
+  }
+
+  /* SVGs scale on small screens */
+  .diagram-container svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  svg text { font-family: var(--font-main); }
+
+  /* ── TABLES ─────────────────────────────────────────────── */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 14px 0;
+    border-radius: 3px;
+  }
+
+  table.note-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88em;
+    min-width: 320px;
+  }
+
+  table.note-table th {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 7px 13px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.82em;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  table.note-table td {
+    padding: 7px 13px;
+    border-bottom: 1px solid var(--rule-light);
+    color: var(--ink-light);
+  }
+
+  table.note-table tr:nth-child(even) td { background: var(--bg-warm); }
+
+  /* ── INLINE ELEMENTS ────────────────────────────────────── */
+  .kw    { font-style: italic; color: var(--accent); font-weight: 500; }
+  em     { font-style: italic; color: var(--ink-light); }
+  strong { font-weight: 700; color: var(--ink); }
+
+  /* ── FOOTNOTE ───────────────────────────────────────────── */
+  .footnote {
+    font-size: 12px;
+    color: var(--margin);
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding-top: 13px;
+    font-style: italic;
+  }
+
+  hr.section-break {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 36px 0;
+  }
+
+  /* ── RESPONSIVE: TABLET (≤680px) ───────────────────────── */
+  @media (max-width: 680px) {
+    .cover { min-height: 70vh; padding-bottom: 40px; margin-bottom: 40px; }
+    .cover-meta { flex-direction: column; gap: 16px; }
+    .toc-dots { display: none; }
+    .toc-entry { gap: 6px; }
+  }
+
+  /* ── RESPONSIVE: MOBILE (≤420px) ───────────────────────── */
+  @media (max-width: 420px) {
+    body { font-size: 14px; line-height: 1.7; }
+    .page { padding: 28px 16px 48px; }
+    .cover { min-height: 60vh; }
+    .cover-title { letter-spacing: 0; }
+    .section { padding-top: 24px; margin-bottom: 36px; }
+    .section-header { margin-bottom: 16px; }
+    .diagram-container { padding: 12px 8px; }
+    .formula { padding: 10px 10px; font-size: 0.82em; }
+    table.note-table th, table.note-table td { padding: 6px 8px; }
+  }
+
+  /* ── PRINT ──────────────────────────────────────────────── */
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    html, body {
+      background: #fff;
+      font-size: 11.5pt;
+      line-height: 1.65;
+    }
+
+    .page {
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Cover on its own page */
+    .cover {
+      min-height: 0;
+      height: 90vh;
+      justify-content: center;
+      page-break-after: always;
+      break-after: page;
+      padding-bottom: 40px;
+      margin-bottom: 0;
+    }
+
+    /* TOC on its own page */
+    .toc {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 0;
+    }
+
+    /* Each section: keep header with first content, avoid mid-section breaks */
+    .section {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      padding-top: 18pt;
+      margin-bottom: 24pt;
+    }
+
+    .section-header {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    .subsection {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-bottom: 16pt;
+    }
+
+    .subsection-title {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    /* Diagrams, boxes, tables, formulas: never split */
+    .diagram-container,
+    .box,
+    .formula,
+    .table-wrap,
+    table.note-table {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Scale diagrams to page width */
+    .diagram-container {
+      margin: 10pt 0;
+      padding: 12pt 10pt;
+      overflow: visible;
+    }
+
+    .diagram-container svg {
+      max-width: 100%;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Tighten spacing for print */
+    .box { margin: 10pt 0; padding: 10pt 14pt; font-size: 10.5pt; }
+    p    { margin-bottom: 8pt; font-size: 11pt; }
+    ul.note-list li, ol.note-list-num li { font-size: 11pt; }
+    .formula { font-size: 10pt; padding: 8pt 12pt; }
+    table.note-table { font-size: 10pt; }
+    table.note-table th, table.note-table td { padding: 5pt 10pt; }
+    .cover-title    { font-size: 28pt; }
+    .cover-subtitle { font-size: 16pt; }
+    .section-title  { font-size: 17pt; }
+    .subsection-title { font-size: 12pt; }
+    .footnote { font-size: 9pt; }
+
+    /* No scrollbars, no overflow hidden in print */
+    .table-wrap { overflow: visible; }
+
+    /* Hide toc-dots in print (no page numbers anyway) */
+    .toc-dots { border-bottom: 1px dotted #ccc; }
+  }
+  /* ── QUIZ ───────────────────────────────────────────────── */
+  .quiz-section {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .quiz-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .quiz-label {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .quiz-title {
+    font-size: clamp(18px, 3.2vw, 24px);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .quiz-question {
+    margin-bottom: 28px;
+    padding: 18px 20px;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
+
+  .quiz-q-text {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+    font-size: 0.97em;
+  }
+
+  .quiz-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-options li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.92em;
+    color: var(--ink-light);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 3px;
+    transition: background 0.15s;
+  }
+
+  .quiz-options li:hover { background: var(--rule-light); }
+
+  .quiz-options input[type="radio"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .quiz-check-btn {
+    margin-top: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 20px;
+    font-family: var(--font-main);
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  .quiz-check-btn:hover { background: #6e1414; }
+
+  .quiz-feedback {
+    margin-top: 10px;
+    font-size: 13px;
+    font-style: italic;
+    min-height: 18px;
+  }
+
+  .quiz-feedback.correct { color: var(--green); }
+  .quiz-feedback.wrong   { color: var(--accent); }
+
+  @media print {
+    .quiz-section {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .quiz-check-btn { display: none; }
+    .quiz-feedback  { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-institution">Summer Finance Course &nbsp;·&nbsp; Module I</div>
+    <div class="cover-rule"></div>
+    <div class="cover-title">Introduction to Finance</div>
+    <div class="cover-subtitle">Foundations, Valuation, Arbitrage &amp; Financial Markets</div>
+    <div class="cover-meta">
+      <span><span class="label">Level</span><span class="value">Introductory / Undergraduate</span></span>
+      <span><span class="label">Topics</span><span class="value">Finance, Valuation, Markets, Arbitrage</span></span>
+      <span><span class="label">Format</span><span class="value">Lecture Notes</span></span>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-entry"><span class="toc-num">1</span><span class="toc-name">Motivation &amp; Introduction</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">2</span><span class="toc-name">What is Finance?</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">3</span><span class="toc-name">Key Financial Questions</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">4</span><span class="toc-name">Approaches to Valuing Real Assets</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">5</span><span class="toc-name">Cash Flows &amp; the Financial Manager</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">6</span><span class="toc-name">Valuation of Assets</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">7</span><span class="toc-name">Arbitrage &amp; Asset Pricing</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">8</span><span class="toc-name">Financial Markets</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">9</span><span class="toc-name">Market Imperfections &amp; Frictions</span><span class="toc-dots"></span></div>
+    <div class="toc-entry"><span class="toc-num">10</span><span class="toc-name">Unifying Principles of Finance</span><span class="toc-dots"></span></div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 1</span>
+      <span class="section-title">Motivation &amp; Introduction</span>
+    </div>
+
+    <div class="box example">
+      <div class="box-title">Motivating Example</div>
+      <p>Suppose you are a <strong>marketing manager</strong> with a project idea costing <strong>$10 million</strong>. The ultimate goal is to increase profits through higher sales. The project is expected to return <strong>$12 million</strong> next year — a profit of $2 million or a return of 20%. Sounds good?</p>
+    </div>
+
+    <p>Before accepting any project, we must ask: <em>how do I know this is the best option?</em> The relevant benchmark is the <span class="kw">opportunity cost of capital</span> — what you could earn elsewhere at equivalent risk.</p>
+
+    <ul class="note-list">
+      <li>If a bank offers <strong>5% interest</strong> on deposits, then a 20% return from the project is attractive — investing is worthwhile.</li>
+      <li>If the <strong>market interest rate is 25%</strong>, then the same project is <em>not</em> worthwhile — you could do better elsewhere.</li>
+    </ul>
+
+    <p>This leads directly to the fundamental question of project comparison. Consider three investment alternatives, each costed at the same level:</p>
+
+    <div class="table-wrap">
+      <table class="note-table">
+        <thead>
+          <tr><th>Project</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Nature</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>↑ $12</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>B</td><td>↑ $4</td><td>↑ $4</td><td>↑ $4</td><td>Certain</td></tr>
+          <tr><td>C</td><td>↑ $4</td><td>↑ $4</td><td>↑ $4</td><td><em>Uncertain</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box remark">
+      <div class="box-title">Key Insight</div>
+      <p>Project C is <strong>risky</strong>. Business decisions ultimately depend on cash flows. We need an objective way to value those cash flows — not a subjective one. Value must be <strong>determined by the market</strong>, not by individual opinion.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 2</span>
+      <span class="section-title">What is Finance?</span>
+    </div>
+
+    <ul class="note-list">
+      <li>Finance is the <span class="kw">bottom line</span> of all business activity.</li>
+      <li>A business activity is a process of <strong>acquiring and disposing of assets</strong> — both real/financial and tangible/intangible.</li>
+    </ul>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">2.1</span> Two Functions of Business Activity</div>
+      <ul class="note-list circle">
+        <li><strong>Grow wealth</strong> — create value.</li>
+        <li><strong>Manage wealth</strong> — to best meet economic needs.</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">2.2</span> The Central Issue: Valuation</div>
+      <p>Every business decision starts with the <span class="kw">valuation of assets</span>. Value is an <strong>objective measure</strong> determined by financial markets — not by personal judgment.</p>
+      <div class="box theorem">
+        <div class="box-title">Foundational Principle</div>
+        <p><em>"You cannot create and manage what you cannot measure."</em></p>
+        <p style="margin-top:8px;">Valuation is therefore the <strong>central issue</strong> of both finance and business.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 3</span>
+      <span class="section-title">Key Financial Questions</span>
+    </div>
+
+    <p>Finance addresses questions at two levels — the <em>firm</em> level and the <em>household</em> level.</p>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">3.1</span> Firm-Level Questions</div>
+      <ul class="note-list">
+        <li><strong>How to value assets</strong> — the foundation of all decisions.</li>
+        <li><strong>Capital budgeting / Real investment</strong> — which projects should the firm invest in?</li>
+        <li><strong>Financing</strong> — how should a project be financed?</li>
+        <li><strong>Payout policy</strong> — what should be paid back to shareholders?</li>
+        <li><strong>Risk management</strong> — which risks to take, which to avoid, and how?</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">3.2</span> Household-Level Questions</div>
+      <p>Households face analogous decisions: how much to consume vs. save, where to invest savings, how to manage personal risk (insurance, diversification), and when to borrow.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 4</span>
+      <span class="section-title">Approaches to Valuing Real Assets</span>
+    </div>
+
+    <p>The economy consists of two types of decision-makers: <strong>firms</strong> and <strong>households</strong>, each interacting with financial markets. A firm's balance sheet provides the conceptual framework:</p>
+
+    <div class="table-wrap">
+      <table class="note-table">
+        <thead>
+          <tr><th>Assets (Uses of Funds)</th><th>Liabilities &amp; Equity (Sources of Funds)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cash</td><td>Debt</td></tr>
+          <tr><td>Capital (Cpl)</td><td>Equity</td></tr>
+          <tr><td>Intangibles</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The fundamental accounting identity: <strong>Total Assets = Total Liabilities + Equity</strong>, which means <em>conservation of value</em>.</p>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">4.1</span> Sources and Uses of Funds</div>
+      <p>The <span class="kw">income statement</span> describes flows of funds through the firm:</p>
+      <ul class="note-list">
+        <li><strong>Source of funds</strong> → Net Income (after tax), funds from existing assets sold, funds raised from debt and equity.</li>
+        <li><strong>Use of funds</strong> → Investment (I) + Coupon payments on bonds + Dividend payments + Tax payments.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 5</span>
+      <span class="section-title">Cash Flows &amp; the Financial Manager</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">5.1</span> Corporate Cash Flow Cycle</div>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Figure 1 — Corporate Cash Flow Diagram</div>
+        <svg viewBox="0 0 600 190" width="560" height="190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#8b1a1a"/>
+            </marker>
+            <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#1a5c2e"/>
+            </marker>
+          </defs>
+          <!-- Corporate Operations -->
+          <ellipse cx="100" cy="95" rx="78" ry="40" fill="#f0ebe0" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="100" y="90" text-anchor="middle" font-size="13" fill="#1a1209">Corporate</text>
+          <text x="100" y="106" text-anchor="middle" font-size="13" fill="#1a1209">Operations</text>
+          <!-- Financial Manager -->
+          <rect x="228" y="65" width="144" height="60" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="300" y="91" text-anchor="middle" font-size="13" fill="#1a1209">Financial</text>
+          <text x="300" y="108" text-anchor="middle" font-size="13" fill="#1a1209">Manager</text>
+          <!-- Investors -->
+          <ellipse cx="500" cy="95" rx="82" ry="40" fill="#f0ebe0" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="500" y="88" text-anchor="middle" font-size="11" fill="#1a1209">Individual &amp;</text>
+          <text x="500" y="102" text-anchor="middle" font-size="11" fill="#1a1209">Institutional</text>
+          <text x="500" y="116" text-anchor="middle" font-size="11" fill="#1a1209">Investors</text>
+          <!-- Arrow 1: Investors → Fin.Mgr (top) -->
+          <line x1="418" y1="72" x2="372" y2="72" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="395" y="65" text-anchor="middle" font-size="10" fill="#6b5a3e">① Cash raised</text>
+          <!-- Arrow 2: Fin.Mgr → Corp Ops -->
+          <line x1="228" y1="80" x2="178" y2="80" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="203" y="73" text-anchor="middle" font-size="10" fill="#6b5a3e">② Real inv.</text>
+          <!-- Arrow 3: Corp Ops → Fin.Mgr -->
+          <line x1="178" y1="110" x2="228" y2="110" stroke="#1a5c2e" stroke-width="1.5" marker-end="url(#arr2)"/>
+          <text x="203" y="128" text-anchor="middle" font-size="10" fill="#1a5c2e">③ NI − T</text>
+          <!-- Arrow 4: Fin.Mgr → Investors (bottom) -->
+          <line x1="372" y1="118" x2="418" y2="118" stroke="#1a5c2e" stroke-width="1.5" marker-end="url(#arr2)"/>
+          <text x="395" y="135" text-anchor="middle" font-size="10" fill="#1a5c2e">④ Payouts</text>
+          <!-- Arrow 5: Investors → Fin.Mgr (midway) -->
+          <line x1="418" y1="95" x2="372" y2="95" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="395" y="90" text-anchor="middle" font-size="10" fill="#6b5a3e">⑤ Reinvested</text>
+        </svg>
+      </div>
+
+      <ol class="note-list-num">
+        <li>Cash <strong>raised from investors</strong> by selling financial assets (ΔD + ΔE).</li>
+        <li>Cash <strong>invested in real assets</strong> — capital expenditures (I).</li>
+        <li>Cash <strong>generated by operations</strong> after tax, net of investment in real assets (NI − T).</li>
+        <li>Cash <strong>returned to investors</strong> — debt payments and dividends (C + Dividends).</li>
+        <li>Cash <strong>reinvested</strong> — net of all outflows (NI − T − C − Dividends).</li>
+      </ol>
+
+      <div class="box remark">
+        <div class="box-title">Mapping to Finance Questions</div>
+        <ul class="note-list circle">
+          <li>Flows ② &amp; ③ → Valuing real assets → <em>Real investment / Capital budgeting</em></li>
+          <li>Flows ①, ④ &amp; ⑤ → Valuing financial assets → <em>Financing &amp; Payout decisions</em></li>
+          <li>Flows ① &amp; ④ → Valuing financial contracts → <em>Risk management</em></li>
+        </ul>
+        <p style="margin-top:10px;">Selling financial assets and repaying them carries risk — you can <strong>default</strong>.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">5.2</span> Household Cash Flow Cycle</div>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Figure 2 — Household Cash Flow Diagram</div>
+        <svg viewBox="0 0 600 190" width="560" height="190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrH" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#8b1a1a"/>
+            </marker>
+            <marker id="arrH2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#1a5c2e"/>
+            </marker>
+          </defs>
+          <!-- Real Economic Activities -->
+          <ellipse cx="100" cy="95" rx="82" ry="42" fill="#f0ebe0" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="100" y="88" text-anchor="middle" font-size="12" fill="#1a1209">Real Economic</text>
+          <text x="100" y="104" text-anchor="middle" font-size="12" fill="#1a1209">Activities</text>
+          <!-- Household -->
+          <rect x="228" y="65" width="134" height="60" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="295" y="98" text-anchor="middle" font-size="13" fill="#1a1209">Household</text>
+          <!-- Financial Markets -->
+          <ellipse cx="498" cy="95" rx="88" ry="42" fill="#f0ebe0" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="498" y="88" text-anchor="middle" font-size="11" fill="#1a1209">Financial Markets</text>
+          <text x="498" y="104" text-anchor="middle" font-size="11" fill="#1a1209">&amp; Institutions</text>
+          <!-- Arrow 1: Fin.Mkts → Household (top) -->
+          <line x1="410" y1="72" x2="362" y2="72" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arrH)"/>
+          <text x="386" y="65" text-anchor="middle" font-size="10" fill="#6b5a3e">①</text>
+          <!-- Arrow 2: Household → Real Econ -->
+          <line x1="228" y1="80" x2="182" y2="80" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arrH)"/>
+          <text x="205" y="73" text-anchor="middle" font-size="10" fill="#6b5a3e">②</text>
+          <!-- Arrow 3: Real Econ → Household -->
+          <line x1="182" y1="110" x2="228" y2="110" stroke="#1a5c2e" stroke-width="1.5" marker-end="url(#arrH2)"/>
+          <text x="205" y="128" text-anchor="middle" font-size="10" fill="#1a5c2e">③</text>
+          <!-- Arrow 4: Household → Fin.Mkts (bottom) -->
+          <line x1="362" y1="118" x2="410" y2="118" stroke="#1a5c2e" stroke-width="1.5" marker-end="url(#arrH2)"/>
+          <text x="386" y="135" text-anchor="middle" font-size="10" fill="#1a5c2e">④</text>
+          <!-- Arrow 5: Fin.Mkts → Household (midway) -->
+          <line x1="410" y1="95" x2="362" y2="95" stroke="#8b1a1a" stroke-width="1.5" marker-end="url(#arrH)"/>
+          <text x="386" y="90" text-anchor="middle" font-size="10" fill="#6b5a3e">⑤</text>
+        </svg>
+      </div>
+
+      <ol class="note-list-num">
+        <li>Cash raised from financial institutions or by holding financial assets.</li>
+        <li>Cash invested in real assets.</li>
+        <li>Cash generated by labour supply and real assets.</li>
+        <li>Cash returned to financial institutions or invested in financial assets.</li>
+        <li>Cash consumed or reinvested.</li>
+      </ol>
+
+      <p>The household objective is to <strong>maximise wellbeing and utility</strong>.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 6</span>
+      <span class="section-title">Valuation of Assets</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">6.1</span> Visualising Cash Flows</div>
+      <p>A cash flow timeline is the standard tool for representing the timing of inflows and outflows:</p>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Figure 3 — Cash Flow Timeline</div>
+        <svg viewBox="0 0 520 130" width="480" height="130" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="tArr" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#1a1209"/>
+            </marker>
+          </defs>
+          <!-- Time axis -->
+          <line x1="40" y1="68" x2="478" y2="68" stroke="#1a1209" stroke-width="2" marker-end="url(#tArr)"/>
+          <text x="490" y="72" font-size="12" fill="#1a1209">time</text>
+          <!-- t=0 -->
+          <line x1="80" y1="61" x2="80" y2="75" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="80" y="88" text-anchor="middle" font-size="12" fill="#1a1209" font-style="italic">t = 0</text>
+          <line x1="80" y1="68" x2="80" y2="108" stroke="#8b1a1a" stroke-width="2"/>
+          <polygon points="74,108 86,108 80,118" fill="#8b1a1a"/>
+          <text x="80" y="126" text-anchor="middle" font-size="11" fill="#8b1a1a">CF₀ (out)</text>
+          <!-- t=1 -->
+          <line x1="230" y1="61" x2="230" y2="75" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="230" y="88" text-anchor="middle" font-size="12" fill="#1a1209" font-style="italic">t = 1</text>
+          <line x1="230" y1="68" x2="230" y2="28" stroke="#1a5c2e" stroke-width="2"/>
+          <polygon points="224,28 236,28 230,18" fill="#1a5c2e"/>
+          <text x="230" y="13" text-anchor="middle" font-size="11" fill="#1a5c2e">CF₁ (in)</text>
+          <!-- t=T -->
+          <line x1="390" y1="61" x2="390" y2="75" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="390" y="88" text-anchor="middle" font-size="12" fill="#1a1209" font-style="italic">t = T</text>
+          <line x1="390" y1="68" x2="390" y2="28" stroke="#1a5c2e" stroke-width="2"/>
+          <polygon points="384,28 396,28 390,18" fill="#1a5c2e"/>
+          <text x="390" y="13" text-anchor="middle" font-size="11" fill="#1a5c2e">CF_T (in)</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">6.2</span> Two Key Characteristics of Cash Flows</div>
+
+      <p><strong>1. Timing — the Time Value of Money.</strong> A dollar today is worth more than a dollar tomorrow. Given the choice between $10,000 today and $10,000 next year, any rational agent prefers today — because of the <span class="kw">Time Value of Money (TVM)</span>.</p>
+
+      <p><strong>2. Risk.</strong> A certain $1,000 differs from a risky gamble yielding $2,000 or $0 with equal probability (expected value is $1,000). The risky asset will trade at a <em>lower price</em> to compensate investors since they take risk — this discount is called the <span class="kw">risk premium</span>.</p>
+
+      <div class="box remark">
+        <div class="box-title">Why Risk Matters in Valuation</div>
+        <p>Because the future payoff is uncertain, investors demand compensation for bearing that uncertainty. How much risk matters in valuation is captured by the <strong>risk premium</strong>.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">6.3</span> How to Value a Cash Flow — Present Value</div>
+
+      <p>Suppose you hold a safe asset yielding $1,000 surely in one year. US Treasury bonds with the same timing and risk offer 5% return. By the logic of competitive markets, your asset must also offer a 5% return.</p>
+
+      <p>Let the price of the asset be <em>X</em>. Then:</p>
+
+      <div class="formula">
+        X × (1 + 0.05) = 1000 &nbsp;&nbsp;⟹&nbsp;&nbsp; <span class="result">X = $952.38</span>
+      </div>
+
+      <p>This is the asset's <span class="kw">current market value</span> — the price at which it should trade in an efficient market.</p>
+
+      <p>For a <strong>risky asset</strong> expected to yield $1,000 in one year, if a comparable traded asset offers 10% return:</p>
+
+      <div class="formula">
+        X × (1 + 0.10) = 1000 &nbsp;&nbsp;⟹&nbsp;&nbsp; <span class="result">X = $909</span>
+      </div>
+
+      <p>The higher discount rate (10% vs 5%) reflects the additional risk premium demanded by investors.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 7</span>
+      <span class="section-title">Arbitrage &amp; Asset Pricing</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.1</span> The Free Lunch Concept</div>
+      <p>If a safe asset with market value $952.38 is traded at $960, market participants can earn a risk-free profit of $7.62 because one can buy a US Treasury bond with the same return at a lower price of $952.38 — a <span class="kw">free lunch</span>. This is called an <span class="kw">arbitrage opportunity</span>: a <em>no-risk, positive-profit</em> trade.</p>
+
+      <div class="box theorem">
+        <div class="box-title">No-Arbitrage Condition</div>
+        <p>In a well-functioning (frictionless) financial market, there should be <strong>no arbitrage opportunities</strong>. Any such opportunity will be eliminated very quickly by sophisticated market participants trading in large quantities until the price discrepancy disappears.</p>
+      </div>
+
+      <p>Similarly, if the asset is priced <em>below</em> $952.38, the free lunch still exists — just reverse the trades. People will buy in large quantities until the price adjusts back to $952.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.2</span> Arbitrage — Formal Definition</div>
+      <p>Arbitrage is a <strong>set of trades</strong> in financial markets for asset valuation. It requires:</p>
+      <ul class="note-list circle">
+        <li>Requires <strong>no positive initial cash flow</strong> (zero initial investment).</li>
+        <li>Yields <strong>non-negative future payoffs</strong>.</li>
+        <li>Generates <strong>at least one strictly positive future payoff</strong> (a sure profit).</li>
+      </ul>
+      <p>These trades do not rely on private information — they exploit market <em>price inequalities</em>.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.3</span> Arbitrage Example I — Interest Rate Differential</div>
+      <div class="box example">
+        <div class="box-title">Example: Citibank vs. Chase</div>
+        <p>Citibank (Citi) offers <strong>1% interest rate on loans</strong>. Chase offers <strong>CDs (certificates of deposit) at 1.125%</strong>.</p>
+        <div class="table-wrap" style="margin-top:10px;">
+          <table class="note-table">
+            <thead><tr><th>Action</th><th>t = 0</th><th>t = 1</th></tr></thead>
+            <tbody>
+              <tr><td>Borrow $100 from Citi @ 1%</td><td>+$100</td><td>−$101</td></tr>
+              <tr><td>Buy CD from Chase @ 1.125%</td><td>−$100</td><td>+$101.125</td></tr>
+              <tr><td><strong>Net Cash Flow</strong></td><td><strong>$0</strong></td><td><strong>+$0.125</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:10px;">This is a <strong>free lunch</strong>: zero initial investment, guaranteed profit of $0.125 per $100 in year 1.</p>
+      </div>
+      <p>Scaling up: borrow $100 million → arbitrage profit = <strong>$125,000</strong>. As traders exploit this, lending rates at Citi rise and CD rates at Chase fall until rates converge and the opportunity disappears.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.4</span> Arbitrage Example II — Cross-Exchange Equity</div>
+      <div class="box example">
+        <div class="box-title">Example: IBM Shares on NYSE and LSE</div>
+        <p>IBM shares trade at <strong>$195 on NYSE</strong> and <strong>£120 on LSE</strong>. The pound/dollar exchange rate is <strong>$1.50/£</strong>.</p>
+        <div class="table-wrap" style="margin-top:10px;">
+          <table class="note-table">
+            <thead><tr><th>Action</th><th>t = 0</th><th>t = 1</th></tr></thead>
+            <tbody>
+              <tr><td>Sell 1 share of IBM @ NYSE</td><td>+$195</td><td>−1 share IBM</td></tr>
+              <tr><td>Convert $195 → £130 (195/1.50)</td><td>£130</td><td>—</td></tr>
+              <tr><td>Buy 1 share of IBM @ LSE</td><td>−£120</td><td>+1 share IBM</td></tr>
+              <tr><td><strong>Net Cash Flow</strong></td><td><strong>+£10</strong></td><td><strong>0</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:10px;">Free lunch of £10 with <strong>zero future liability</strong>. As trades are carried out in large quantities, prices converge (NYSE falls, LSE rises) and the opportunity vanishes.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.5</span> Three Key Conclusions from Arbitrage</div>
+      <ol class="note-list-num">
+        <li>In a well-functioning <strong>frictionless</strong> market, there are <strong>no arbitrage opportunities</strong> — the <em>No Arbitrage Condition (NAC)</em>.</li>
+        <li>To value an asset, find a <strong>traded asset with the same cash flow</strong> in the market. Its price gives the current market value of the asset you hold.</li>
+        <li>In the absence of arbitrage, assets with the <strong>same payoffs must have the same prices</strong> — the <span class="kw">Law of One Price (LOP)</span>.</li>
+      </ol>
+
+      <div class="box theorem">
+        <div class="box-title">Law of One Price</div>
+        <p>In the absence of arbitrage, assets with identical payoffs must trade at the same price. A violation of the Law of One Price is also a violation of the No Arbitrage Condition.</p>
+        <p style="margin-top:8px; font-style:italic;">With a rich set of traded assets covering the whole range of time and risk, and well-functioning financial markets, all assets are valued and priced by the market.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">7.6</span> Reality Check: Frictions Exist</div>
+      <p>In reality, frictions such as <strong>entry costs, trading costs, and information asymmetry</strong> exist. These hinder market forces — if costs eat into the profit, it is no longer arbitrage.</p>
+      <ul class="note-list">
+        <li>The NAC still holds if frictions are <em>small</em> and affect only a small number of participants — professional traders with low costs and faster execution can still eliminate arbitrage.</li>
+        <li>If a price mismatch is <em>large and persistent</em>, it is not sustainable.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 8</span>
+      <span class="section-title">Financial Markets</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.1</span> Summary of Key Lessons</div>
+      <ul class="note-list">
+        <li>Sound economic decisions rely on knowing how to <strong>value assets</strong>.</li>
+        <li>Asset valuation is <strong>determined by financial markets</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.2</span> The Central Role of Financial Markets</div>
+      <ul class="note-list circle">
+        <li><strong>Micro level</strong>: Guiding economic decisions made by firms and households.</li>
+        <li><strong>Macro level</strong>: Allocating resources across different economic activities.</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.3</span> Structure of the Economy</div>
+      <p>The economy consists of three markets:</p>
+      <ul class="note-list circle">
+        <li><strong>Labour market</strong> — part of the real economy.</li>
+        <li><strong>Product market</strong> — part of the real economy.</li>
+        <li><strong>Financial market</strong> — includes financial firms/intermediaries.</li>
+      </ul>
+      <p>The end players in all these markets are <strong>households</strong> and <strong>non-financial firms</strong>.</p>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Figure 4 — Circular Flow of the Economy</div>
+        <svg viewBox="0 0 580 230" width="520" height="230" xmlns="http://www.w3.org/2000/svg">
+          <!-- Households -->
+          <rect x="215" y="10" width="150" height="40" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="290" y="35" text-anchor="middle" font-size="13" fill="#1a1209">Households</text>
+          <!-- Labour market -->
+          <rect x="20" y="95" width="130" height="40" rx="4" fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="85" y="120" text-anchor="middle" font-size="12" fill="#1a3a5c">Labour Market</text>
+          <!-- Financial market -->
+          <rect x="215" y="95" width="150" height="50" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="290" y="117" text-anchor="middle" font-size="12" fill="#1a1209">Financial Market</text>
+          <text x="290" y="133" text-anchor="middle" font-size="11" fill="#6b5a3e">&amp; Intermediaries</text>
+          <!-- Product market -->
+          <rect x="430" y="95" width="130" height="40" rx="4" fill="#edf5f0" stroke="#1a5c2e" stroke-width="1.5"/>
+          <text x="495" y="120" text-anchor="middle" font-size="12" fill="#1a5c2e">Product Market</text>
+          <!-- Non-fin firms -->
+          <rect x="215" y="180" width="150" height="40" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="290" y="205" text-anchor="middle" font-size="12" fill="#1a1209">Non-fin. Firms</text>
+          <!-- Connecting arrows -->
+          <line x1="215" y1="30" x2="150" y2="95" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <line x1="150" y1="135" x2="215" y2="180" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <line x1="365" y1="30" x2="430" y2="95" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <line x1="430" y1="135" x2="365" y2="180" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <line x1="290" y1="50" x2="290" y2="95" stroke="#8b1a1a" stroke-width="1.5"/>
+          <line x1="290" y1="145" x2="290" y2="180" stroke="#8b1a1a" stroke-width="1.5"/>
+          <!-- Labels -->
+          <text x="155" y="90" font-size="10" fill="#1a3a5c" text-anchor="middle">wages</text>
+          <text x="435" y="90" font-size="10" fill="#1a5c2e" text-anchor="middle">goods sold</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.4</span> Need for Financial Markets</div>
+      <p>Firms and households need financial markets to produce and consume goods and services:</p>
+      <ul class="note-list">
+        <li>Firms take out <strong>loans, issue bonds, or sell stock</strong> to fund operations.</li>
+        <li>Households need money from banks for <strong>current consumption or future planning</strong>.</li>
+      </ul>
+      <div class="box theorem">
+        <div class="box-title">Centrality of Finance</div>
+        <p>An effective financial market is the <strong>foundation of a modern economy</strong>. It sits at the centre of the economic universe.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.5</span> Structure of the Financial System</div>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Figure 5 — Financial System Structure</div>
+        <svg viewBox="0 0 500 210" width="460" height="210" xmlns="http://www.w3.org/2000/svg">
+          <!-- Securities market (diamond) -->
+          <polygon points="250,88 312,130 250,172 188,130" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="250" y="126" text-anchor="middle" font-size="11" fill="#1a1209">Securities</text>
+          <text x="250" y="142" text-anchor="middle" font-size="11" fill="#1a1209">Market</text>
+          <!-- Households -->
+          <rect x="185" y="10" width="130" height="36" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="250" y="33" text-anchor="middle" font-size="13" fill="#1a1209">Households</text>
+          <!-- Insurance -->
+          <ellipse cx="70" cy="82" rx="60" ry="26" fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.2"/>
+          <text x="70" y="79" text-anchor="middle" font-size="11" fill="#1a3a5c">Insurance</text>
+          <text x="70" y="94" text-anchor="middle" font-size="11" fill="#1a3a5c">Companies</text>
+          <!-- Comm. Banks -->
+          <ellipse cx="430" cy="82" rx="60" ry="26" fill="#edf5f0" stroke="#1a5c2e" stroke-width="1.2"/>
+          <text x="430" y="79" text-anchor="middle" font-size="11" fill="#1a5c2e">Comm.</text>
+          <text x="430" y="94" text-anchor="middle" font-size="11" fill="#1a5c2e">Banks</text>
+          <!-- Mutual Funds -->
+          <ellipse cx="70" cy="162" rx="60" ry="26" fill="#f0ebe0" stroke="#8b1a1a" stroke-width="1.2"/>
+          <text x="70" y="159" text-anchor="middle" font-size="11" fill="#8b1a1a">Mutual</text>
+          <text x="70" y="174" text-anchor="middle" font-size="11" fill="#8b1a1a">Funds</text>
+          <!-- Investment Banks -->
+          <ellipse cx="430" cy="162" rx="60" ry="26" fill="#f0ebe0" stroke="#8b1a1a" stroke-width="1.2"/>
+          <text x="430" y="159" text-anchor="middle" font-size="11" fill="#8b1a1a">Investment</text>
+          <text x="430" y="174" text-anchor="middle" font-size="11" fill="#8b1a1a">Banks</text>
+          <!-- Non-fin Firms -->
+          <rect x="185" y="175" width="130" height="28" rx="4" fill="#f5f0e8" stroke="#1a1209" stroke-width="1.5"/>
+          <text x="250" y="194" text-anchor="middle" font-size="12" fill="#1a1209">Non-fin. Firms</text>
+          <!-- Connecting lines: precisely from shape edges to diamond corners -->
+          <!-- Households (bottom edge y=46) → diamond top (250,88) -->
+          <line x1="250" y1="46" x2="250" y2="88" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <!-- Diamond bottom (250,172) → Non-fin Firms top (250,175) -->
+          <line x1="250" y1="172" x2="250" y2="175" stroke="#6b5a3e" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <!-- Insurance right edge (cx=70, rx=60 → x=130, cy=82) → diamond left corner (188,130) -->
+          <line x1="130" y1="82" x2="188" y2="130" stroke="#6b5a3e" stroke-width="1" stroke-dasharray="3,3"/>
+          <!-- Comm Banks left edge (cx=430, rx=60 → x=370, cy=82) → diamond right corner (312,130) -->
+          <line x1="370" y1="82" x2="312" y2="130" stroke="#6b5a3e" stroke-width="1" stroke-dasharray="3,3"/>
+          <!-- Mutual Funds right edge (cx=70, rx=60 → x=130, cy=162) → diamond left corner (188,130) -->
+          <line x1="130" y1="162" x2="188" y2="130" stroke="#6b5a3e" stroke-width="1" stroke-dasharray="3,3"/>
+          <!-- Inv Banks left edge (cx=430, rx=60 → x=370, cy=162) → diamond right corner (312,130) -->
+          <line x1="370" y1="162" x2="312" y2="130" stroke="#6b5a3e" stroke-width="1" stroke-dasharray="3,3"/>
+        </svg>
+      </div>
+
+      <p><span class="kw">Securities markets</span> are where financial assets, claims, and contracts are traded. They include:</p>
+      <ul class="note-list circle">
+        <li><strong>Money markets</strong> — short-term debt instruments.</li>
+        <li><strong>Capital markets (Cpl)</strong> — long-term equity and debt.</li>
+        <li><strong>Derivatives</strong> — securities with payoffs tied to other prices (forwards, futures, swaps, options).</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.6</span> Who Owns What</div>
+      <div class="table-wrap">
+        <table class="note-table">
+          <thead><tr><th>Entity</th><th>Primarily Owns</th></tr></thead>
+          <tbody>
+            <tr><td>Financial intermediaries</td><td>Financial assets (categorised by timing, risk, payoff)</td></tr>
+            <tr><td>Non-financial firms</td><td>Mostly real assets</td></tr>
+            <tr><td>Households</td><td>Both real and financial assets</td></tr>
+            <tr><td>Governments</td><td>Both real and financial assets/liabilities</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">8.7</span> Functions of Financial Markets</div>
+      <ul class="note-list">
+        <li><strong>Allocating resources across time</strong> — e.g., borrowing money to buy a home uses future income for current needs.</li>
+        <li><strong>Allocating resources across different states of the economy</strong> — e.g., investing in stocks/bonds to diversify risk across good and bad economic scenarios.</li>
+        <li><strong>Price discovery</strong> — market prices reflect all available information, which guides real economic decisions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 9</span>
+      <span class="section-title">Market Imperfections &amp; Frictions</span>
+    </div>
+
+    <p>While theory begins with frictionless markets, real markets contain imperfections that analysts must account for.</p>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">9.1</span> Types of Market Imperfections</div>
+      <ol class="note-list-num">
+        <li><strong>Transaction costs</strong> — missing markets (cost of trading certain assets is too high); access costs; trading costs (commissions, liquidity); and position/trading constraints (e.g., restrictions on short-selling).</li>
+        <li><strong>Information asymmetry</strong> — different information between a firm's stakeholders, corporate managers, financial market participants, and other market participants.</li>
+        <li><strong>Taxes</strong> — both corporate and personal taxes distort pricing and decision-making.</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title"><span class="sub-num">9.2</span> Implications</div>
+      <ul class="note-list">
+        <li>Analysis always <strong>starts with a frictionless market</strong> as the benchmark.</li>
+        <li>Real market frictions are introduced <strong>whenever necessary</strong> for the specific context.</li>
+        <li>If price mismatches are <em>large and persistent</em>, they are not sustainable — they indicate a structural problem or a real arbitrage exploitable by professionals.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">§ 10</span>
+      <span class="section-title">Unifying Principles of Finance</span>
+    </div>
+
+    <p>These principles underpin all of financial theory and practice.</p>
+
+    <ol class="note-list-num">
+      <li>
+        <strong>There is no such thing as a free lunch in the financial market.</strong><br>
+        <span style="color: var(--ink-light);">Any apparent risk-free profit opportunity will be quickly eliminated by market participants. This is the foundation of no-arbitrage pricing.</span>
+      </li>
+      <li><strong>Non-satiation — individuals always prefer more to less (more money to less).</strong></li>
+      <li><strong>Risk aversion — individuals prefer to avoid risk when other things are equal.</strong></li>
+      <li><strong>Impatience — individuals prefer money now rather than later.</strong></li>
+      <li><strong>Financial market prices shift to equalise supply and demand</strong> — markets reach equilibrium.</li>
+      <li>
+        <strong>Market imperfections are central to financial innovation.</strong><br>
+        <span style="color: var(--ink-light);">Financial innovations to overcome market imperfections lead to the realisation of profits and their eventual disappearance. We need innovations to bypass inefficiencies.</span>
+      </li>
+    </ol>
+
+    <div class="box theorem">
+      <div class="box-title">Summary Takeaway</div>
+      <p>Finance is fundamentally about <strong>valuing assets objectively</strong> — using market prices, the time value of money, and risk — rather than relying on subjective judgment. The financial market is not just a mechanism for trading; it is the <strong>information system</strong> that guides all economic decisions at both the firm and household level.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section">
+    <div class="quiz-header">
+      <span class="quiz-label">§ Quiz</span>
+      <span class="quiz-title">Check Your Understanding</span>
+    </div>
+
+    <!-- Q1 -->
+    <div class="quiz-question">
+      <div class="quiz-q-text">1. A project costs $10 million today and returns $12 million next year. If the market interest rate is 25%, which of the following is correct?</div>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> (a) The project should be accepted because it generates a $2 million profit.</label></li>
+        <li><label><input type="radio" name="q1" value="b"> (b) The project should be rejected because the opportunity cost of capital exceeds the project return.</label></li>
+        <li><label><input type="radio" name="q1" value="c"> (c) The project should be accepted because a 20% return is always attractive.</label></li>
+        <li><label><input type="radio" name="q1" value="d"> (d) The market interest rate is irrelevant to the investment decision.</label></li>
+      </ul>
+      <button class="quiz-check-btn" data-q="q1" data-ans="b" data-explain="The market offers 25%, so investing elsewhere yields more. The project return of 20% falls below the opportunity cost of capital.">Check Answer</button>
+      <div class="quiz-feedback" id="q1-fb"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-question">
+      <div class="quiz-q-text">2. An arbitrage opportunity is best described as a set of trades that:</div>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> (a) Requires a large initial investment to generate guaranteed returns.</label></li>
+        <li><label><input type="radio" name="q2" value="b"> (b) Relies on private insider information to earn excess profits.</label></li>
+        <li><label><input type="radio" name="q2" value="c"> (c) Requires no initial investment and yields at least one strictly positive future payoff with no risk.</label></li>
+        <li><label><input type="radio" name="q2" value="d"> (d) Generates profits only in bull markets when prices are rising.</label></li>
+      </ul>
+      <button class="quiz-check-btn" data-q="q2" data-ans="c" data-explain="Arbitrage requires zero net initial cash outflow, non-negative future payoffs, and at least one strictly positive future payoff — a risk-free profit.">Check Answer</button>
+      <div class="quiz-feedback" id="q2-fb"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-question">
+      <div class="quiz-q-text">3. According to the Law of One Price, which of the following must be true in a frictionless market?</div>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> (a) All assets must offer the same rate of return regardless of their risk.</label></li>
+        <li><label><input type="radio" name="q3" value="b"> (b) Assets with identical future payoffs must trade at the same price.</label></li>
+        <li><label><input type="radio" name="q3" value="c"> (c) Financial markets must be regulated by a central authority to prevent price differences.</label></li>
+        <li><label><input type="radio" name="q3" value="d"> (d) The price of every asset is determined solely by its book value.</label></li>
+      </ul>
+      <button class="quiz-check-btn" data-q="q3" data-ans="b" data-explain="The Law of One Price states that in the absence of arbitrage, assets with identical payoffs must trade at the same price. Any deviation creates an arbitrage opportunity that traders quickly eliminate.">Check Answer</button>
+      <div class="quiz-feedback" id="q3-fb"></div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    These notes cover the introductory module on the foundations of finance, including the role of financial markets, valuation principles, arbitrage, and the structure of the financial system. All examples are drawn from lecture content and are intended as a conceptual guide rather than a comprehensive treatment.
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('quiz-check-btn')) return;
+    var btn = e.target;
+    var qId = btn.getAttribute('data-q');
+    var correct = btn.getAttribute('data-ans');
+    var explain = btn.getAttribute('data-explain');
+    var selected = document.querySelector('input[name="' + qId + '"]:checked');
+    var fb = document.getElementById(qId + '-fb');
+    if (!selected) {
+      fb.textContent = 'Please select an answer first.';
+      fb.className = 'quiz-feedback';
+      return;
+    }
+    if (selected.value === correct) {
+      fb.textContent = '\u2713 Correct! ' + explain;
+      fb.className = 'quiz-feedback correct';
+    } else {
+      fb.textContent = '\u2717 Not quite. ' + explain;
+      fb.className = 'quiz-feedback wrong';
+    }
+  });
+</script>
+</body>
+</html>
